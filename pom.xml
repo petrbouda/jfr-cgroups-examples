@@ -19,8 +19,8 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>pbouda.jfr.cgroups</groupId>
-                <artifactId>recorder</artifactId>
+                <groupId>pbouda.jfr</groupId>
+                <artifactId>cgroups-recorder</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
         </dependencies>

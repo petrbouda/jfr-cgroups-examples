@@ -63,8 +63,8 @@
             <version>${springdoc.version}</version>
         </dependency>
         <dependency>
-            <groupId>pbouda.jfr.cgroups</groupId>
-            <artifactId>recorder</artifactId>
+            <groupId>pbouda.jfr</groupId>
+            <artifactId>cgroups-recorder</artifactId>
         </dependency>
     </dependencies>
 
