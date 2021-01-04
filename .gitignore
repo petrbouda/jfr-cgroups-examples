@@ -4,3 +4,4 @@ target
 *-pom.xml
 .m2
 .idea
+.mvn
