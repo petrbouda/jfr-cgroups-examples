@@ -1,4 +1,4 @@
 module jfr.cgroups.streaming {
-    requires jfr.cgroups.recorder;
+    requires jfr.cgroups;
     requires jdk.jfr;
 }

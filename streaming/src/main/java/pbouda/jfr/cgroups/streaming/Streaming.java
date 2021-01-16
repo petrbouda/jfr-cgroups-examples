@@ -2,7 +2,7 @@ package pbouda.jfr.cgroups.streaming;
 
 import jdk.jfr.consumer.RecordedEvent;
 import jdk.jfr.consumer.RecordingStream;
-import pbouda.jfr.cgroups.recorder.CgroupsRecorder;
+import pbouda.jfr.cgroups.CgroupsRecorder;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -26,6 +26,8 @@ public class Streaming {
                 .with("period", "beginChunk");
         rs.enable("cgroups.CpuStat")
                 .withPeriod(Duration.ofSeconds(1));
+        rs.enable("process.ContextSwitches")
+                .withPeriod(Duration.ofSeconds(1));
 //        rs.enable("jdk.CPULoad").withPeriod(duration);
 //        rs.enable("jdk.YoungGarbageCollection").withoutThreshold();
 //        rs.enable("jdk.OldGarbageCollection").withoutThreshold();
@@ -46,6 +48,7 @@ public class Streaming {
         // Dispatch handlers
         rs.onEvent("cgroups.CfsSettings", Streaming::printCfsSettings);
         rs.onEvent("cgroups.CpuStat", Streaming::printCpuStat);
+        rs.onEvent("process.ContextSwitches", Streaming::printContextSwitches);
 //        rs.onEvent("jdk.CPULoad", Main::onCPULoad);
 //        rs.onEvent("jdk.YoungGarbageCollection", Main::onYoungColletion);
 //        rs.onEvent("jdk.OldGarbageCollection", Main::onOldCollection);
@@ -65,6 +68,17 @@ public class Streaming {
 //        rs.onFlush(Main::printReport);
         rs.startAsync();
 
+    }
+
+    private static void printContextSwitches(RecordedEvent event) {
+        long voluntary = event.getLong("voluntary");
+        long nonVoluntary = event.getLong("nonVoluntary");
+
+        System.out.println(
+                "------------------------\n" +
+                " VOLUNTARY: " + voluntary + "\n" +
+                " NON_VOLUNTARY: " + nonVoluntary + "\n" +
+                "------------------------\n");
     }
 
     private static void printCfsSettings(RecordedEvent event) {
